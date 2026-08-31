@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mai Vũ® — Digital Product Designer</title>
-  <meta name="description" content="Mai Vũ is a digital product designer crafting interfaces, systems and motion for ambitious brands. Based in Saigon, working worldwide." />
+  <title data-i18n="metaTitle">Bùi Đức Trung — UX/UI Designer</title>
+  <meta name="description" data-i18n="metaDesc" data-i18n-attr="content" content="Bùi Đức Trung is a UX/UI design student at FPT University Hanoi, working through research, wireframes and prototypes. Open to internships and junior roles." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230A0A0B'/><text x='50' y='68' font-size='58' text-anchor='middle' fill='%23D8FF3D' font-family='sans-serif' font-weight='700'>M</text></svg>" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230C0A0A'/><text x='50' y='68' font-size='58' text-anchor='middle' fill='%23FF3B30' font-family='sans-serif' font-weight='700'>T</text></svg>" />
+  <link rel="stylesheet" href="styles.css?v=9" />
 </head>
 <body>
 
@@ -17,7 +17,7 @@
   <div class="preloader" id="preloader" aria-hidden="true">
     <div class="preloader__inner">
       <span class="preloader__count" id="preCount">0</span>
-      <span class="preloader__label">Mai Vũ® — Portfolio ’26</span>
+      <span class="preloader__label" data-i18n="preloader">Bùi Đức Trung® — Portfolio ’26</span>
     </div>
   </div>
 
@@ -29,20 +29,27 @@
 
   <!-- Nav -->
   <header class="nav" id="nav">
-    <a href="#top" class="nav__logo" data-hover>MV<sup>®</sup></a>
+    <a href="#top" class="nav__logo" data-hover>BĐT<sup>®</sup></a>
     <div class="nav__meta">
-      <span class="nav__meta-item">Saigon, VN</span>
+      <span class="nav__meta-item" data-i18n="navLocation">Hanoi, VN</span>
       <span class="nav__meta-item" id="clock">00:00:00</span>
     </div>
     <nav class="nav__links" aria-label="Primary">
-      <a href="#work" class="nav__link" data-hover>Work</a>
-      <a href="#about" class="nav__link" data-hover>About</a>
-      <a href="#contact" class="nav__link" data-hover>Contact</a>
+      <a href="#work" class="nav__link" data-hover data-i18n="navWork">Work</a>
+      <a href="#about" class="nav__link" data-hover data-i18n="navAbout">About</a>
+      <a href="#contact" class="nav__link" data-hover data-i18n="navContact">Contact</a>
     </nav>
-    <button class="nav__burger" id="menuToggle" data-hover aria-expanded="false" aria-controls="menu" aria-label="Open menu">
-      <span class="nav__burger-line"></span>
-      <span class="nav__burger-line"></span>
-    </button>
+    <div class="nav__end">
+      <button class="nav__lang" id="langToggle" data-hover aria-label="Switch language / Đổi ngôn ngữ">
+        <span class="nav__lang-opt" data-lang="en">EN</span>
+        <span class="nav__lang-sep" aria-hidden="true">/</span>
+        <span class="nav__lang-opt" data-lang="vi">VI</span>
+      </button>
+      <button class="nav__burger" id="menuToggle" data-hover aria-expanded="false" aria-controls="menu" aria-label="Open menu">
+        <span class="nav__burger-line"></span>
+        <span class="nav__burger-line"></span>
+      </button>
+    </div>
   </header>
 
   <!-- Fullscreen menu -->
@@ -50,14 +57,14 @@
     <div class="menu__bg"></div>
     <div class="menu__inner">
       <nav class="menu__nav" aria-label="Menu">
-        <a href="#work" class="menu__link" data-hover><span class="menu__num">01</span><span class="menu__word">Work</span></a>
-        <a href="#about" class="menu__link" data-hover><span class="menu__num">02</span><span class="menu__word">About</span></a>
-        <a href="#services" class="menu__link" data-hover><span class="menu__num">03</span><span class="menu__word">Services</span></a>
-        <a href="#contact" class="menu__link" data-hover><span class="menu__num">04</span><span class="menu__word">Contact</span></a>
+        <a href="#work" class="menu__link" data-hover><span class="menu__num">01</span><span class="menu__word" data-i18n="navWork">Work</span></a>
+        <a href="#about" class="menu__link" data-hover><span class="menu__num">02</span><span class="menu__word" data-i18n="navAbout">About</span></a>
+        <a href="#services" class="menu__link" data-hover><span class="menu__num">03</span><span class="menu__word" data-i18n="navServices">What I do</span></a>
+        <a href="#contact" class="menu__link" data-hover><span class="menu__num">04</span><span class="menu__word" data-i18n="navContact">Contact</span></a>
       </nav>
       <div class="menu__footer">
-        <a href="mailto:hello@maivu.design" data-hover>hello@maivu.design</a>
-        <span>Saigon — GMT+7</span>
+        <a href="mailto:Trung120704@gmail.com" data-hover>Trung120704@gmail.com</a>
+        <span data-i18n="menuLocation">Hanoi — GMT+7</span>
       </div>
     </div>
   </div>
@@ -71,175 +78,95 @@
           <canvas id="webgl" aria-hidden="true"></canvas>
           <div class="hero__frame">
             <div class="hero__topline">
-              <span data-reveal="fade">Digital product designer</span>
-              <span data-reveal="fade">Folio ’22—’26</span>
+              <span data-reveal="fade" data-i18n="heroRole">UX/UI Designer</span>
+              <span data-reveal="fade" data-i18n="heroYears">Folio ’22—’26</span>
             </div>
-            <h1 class="hero__title" aria-label="Mai Vũ, digital product designer">
-              <span class="hero__line"><span class="hero__line-inner" id="heroLine1">MAI VŨ<sup class="hero__reg">®</sup></span></span>
-              <span class="hero__line hero__line--outline"><span class="hero__line-inner" id="heroLine2">DESIGNER</span></span>
+            <h1 class="hero__title" aria-label="Bùi Đức Trung, UX/UI Designer">
+              <span class="hero__line"><span class="hero__line-inner" id="heroLine1">ĐỨC<sup class="hero__reg">®</sup></span></span>
+              <span class="hero__line hero__line--outline"><span class="hero__line-inner" id="heroLine2">TRUNG</span></span>
             </h1>
             <div class="hero__bottom">
-              <p class="hero__intro" data-reveal="lines">I design interfaces, systems and motion for ambitious products — turning complex problems into experiences people feel.</p>
+              <p class="hero__intro" data-reveal="lines" data-i18n="heroIntro">I’m a UX/UI design student at FPT University Hanoi. I work through research, wireframes and prototypes to make digital products people understand without being taught.</p>
               <div class="hero__scroll" data-reveal="fade">
-                <span>Scroll</span>
+                <span data-i18n="heroScroll">Scroll</span>
                 <svg width="12" height="16" viewBox="0 0 12 16" fill="none" aria-hidden="true"><path d="M6 1v13M1.5 9.5 6 14l4.5-4.5" stroke="currentColor" stroke-width="1.5"/></svg>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- MARQUEE -->
+        <!-- MARQUEE — items come from CONTENT.marquee in content.js -->
         <div class="marquee" aria-hidden="true">
-          <div class="marquee__track" id="marqueeTrack">
-            <span class="marquee__group">
-              <span>UI Design</span><i>✦</i><span>UX Research</span><i>✦</i><span>Design Systems</span><i>✦</i><span>Motion</span><i>✦</i><span>Prototyping</span><i>✦</i>
-            </span>
-            <span class="marquee__group">
-              <span>UI Design</span><i>✦</i><span>UX Research</span><i>✦</i><span>Design Systems</span><i>✦</i><span>Motion</span><i>✦</i><span>Prototyping</span><i>✦</i>
-            </span>
-          </div>
+          <div class="marquee__track" id="marqueeTrack"></div>
         </div>
 
         <!-- WORK -->
         <section class="work" id="work">
           <div class="section-head">
-            <h2 class="section-head__title" data-reveal="chars">Selected<br/>Work</h2>
+            <h2 class="section-head__title" data-reveal="chars" data-i18n-html="workTitle">Selected<br/>Work</h2>
             <span class="section-head__index" data-reveal="fade">(01)</span>
           </div>
 
-          <div class="work__grid">
-            <a href="#contact" class="project" data-hover-label="View case">
-              <figure class="project__media project__media--a">
-                <div class="project__art" data-speed="0.92"><span class="project__num">01</span></div>
-              </figure>
-              <div class="project__info">
-                <h3 class="project__title">Lumen Bank</h3>
-                <p class="project__desc">Reimagining personal finance for a mobile-first generation.</p>
-                <div class="project__tags"><span>Fintech</span><span>iOS App</span><span>2026</span></div>
-              </div>
-            </a>
-
-            <a href="#contact" class="project" data-hover-label="View case">
-              <figure class="project__media project__media--b">
-                <div class="project__art" data-speed="0.94"><span class="project__num">02</span></div>
-              </figure>
-              <div class="project__info">
-                <h3 class="project__title">Nocta Audio</h3>
-                <p class="project__desc">An immersive e-commerce experience for high-end headphones.</p>
-                <div class="project__tags"><span>E-commerce</span><span>WebGL</span><span>2025</span></div>
-              </div>
-            </a>
-
-            <a href="#contact" class="project" data-hover-label="View case">
-              <figure class="project__media project__media--c">
-                <div class="project__art" data-speed="0.94"><span class="project__num">03</span></div>
-              </figure>
-              <div class="project__info">
-                <h3 class="project__title">Aro Health</h3>
-                <p class="project__desc">A calm, clinical-grade companion for chronic care patients.</p>
-                <div class="project__tags"><span>Health</span><span>Design System</span><span>2025</span></div>
-              </div>
-            </a>
-
-            <a href="#contact" class="project" data-hover-label="View case">
-              <figure class="project__media project__media--d">
-                <div class="project__art" data-speed="0.92"><span class="project__num">04</span></div>
-              </figure>
-              <div class="project__info">
-                <h3 class="project__title">Atlas OS</h3>
-                <p class="project__desc">Travel planning, rebuilt as a spatial, map-native workspace.</p>
-                <div class="project__tags"><span>SaaS</span><span>Web App</span><span>2024</span></div>
-              </div>
-            </a>
-          </div>
+          <!-- Cards are generated from the PROJECTS list in content.js -->
+          <div class="work__grid" id="workGrid"></div>
         </section>
 
         <!-- ABOUT -->
         <section class="about" id="about">
           <div class="section-head">
-            <h2 class="section-head__title" data-reveal="chars">About</h2>
+            <h2 class="section-head__title" data-reveal="chars" data-i18n-html="aboutTitle">About</h2>
             <span class="section-head__index" data-reveal="fade">(02)</span>
           </div>
-          <p class="about__statement" id="aboutStatement">Good design is invisible until it moves you. For six years I’ve helped startups and studios ship products that are equal parts rigorous and alive — systems thinking underneath, play on the surface.</p>
+          <p class="about__statement" id="aboutStatement" data-i18n="aboutStatement">Good design should disappear into use. I’m drawn to the point where function and aesthetics stop competing — where research turns into something a person can pick up without being taught.</p>
           <div class="about__meta">
             <div class="about__col" data-reveal="fade">
-              <h4>Recognition</h4>
-              <ul>
-                <li>Awwwards — Site of the Day ×3</li>
-                <li>FWA — of the Day ×2</li>
-                <li>CSS Design Awards — Judge</li>
-              </ul>
+              <h4 data-i18n="aboutCol1Title">Education</h4>
+              <ul id="aboutCol1"></ul>
             </div>
             <div class="about__col" data-reveal="fade">
-              <h4>Previously</h4>
-              <ul>
-                <li>Lead Designer — Nimbus Studio</li>
-                <li>Product Designer — Kite</li>
-                <li>Freelance — worldwide</li>
-              </ul>
+              <h4 data-i18n="aboutCol2Title">Experience</h4>
+              <ul id="aboutCol2"></ul>
             </div>
           </div>
         </section>
 
-        <!-- SERVICES -->
+        <!-- WHAT I DO -->
         <section class="services" id="services">
           <div class="section-head">
-            <h2 class="section-head__title" data-reveal="chars">Services</h2>
+            <h2 class="section-head__title" data-reveal="chars" data-i18n-html="servicesTitle">What I do</h2>
             <span class="section-head__index" data-reveal="fade">(03)</span>
           </div>
-          <ul class="services__list">
-            <li class="service" data-reveal="row">
-              <span class="service__num">01</span>
-              <h3 class="service__name">Product Design</h3>
-              <p class="service__desc">End-to-end: research, flows, wireframes, polished UI.</p>
-            </li>
-            <li class="service" data-reveal="row">
-              <span class="service__num">02</span>
-              <h3 class="service__name">Design Systems</h3>
-              <p class="service__desc">Token architecture, component libraries, documentation.</p>
-            </li>
-            <li class="service" data-reveal="row">
-              <span class="service__num">03</span>
-              <h3 class="service__name">Interaction &amp; Motion</h3>
-              <p class="service__desc">Micro-interactions, prototypes, motion languages.</p>
-            </li>
-            <li class="service" data-reveal="row">
-              <span class="service__num">04</span>
-              <h3 class="service__name">Creative Direction</h3>
-              <p class="service__desc">Brand-led web experiences that win attention.</p>
-            </li>
-          </ul>
+          <ul class="services__list" id="servicesList"></ul>
         </section>
 
         <!-- CONTACT / FOOTER -->
         <footer class="contact" id="contact">
           <div class="contact__inner">
-            <span class="contact__kicker" data-reveal="fade">Have a project in mind?</span>
-            <a href="mailto:hello@maivu.design" class="contact__cta" data-hover-label="Say hi">
+            <span class="contact__kicker" data-reveal="fade" data-i18n="contactKicker">Open to internships and junior roles</span>
+            <a href="mailto:Trung120704@gmail.com" class="contact__cta" data-hover-label="Say hi">
               <span class="contact__cta-line"><span class="contact__cta-inner" id="ctaLine1">LET’S</span></span>
               <span class="contact__cta-line"><span class="contact__cta-inner" id="ctaLine2">TALK<span class="contact__arrow">↗</span></span></span>
             </a>
             <div class="contact__grid">
               <div class="contact__col">
-                <h4>Contact</h4>
-                <a href="mailto:hello@maivu.design" data-hover>hello@maivu.design</a>
+                <h4 data-i18n="contactColContact">Contact</h4>
+                <a href="mailto:Trung120704@gmail.com" data-hover>Trung120704@gmail.com</a>
               </div>
               <div class="contact__col">
-                <h4>Socials</h4>
-                <a href="#top" data-hover>Dribbble</a>
-                <a href="#top" data-hover>LinkedIn</a>
-                <a href="#top" data-hover>Instagram</a>
+                <h4 data-i18n="contactColSocial">Socials</h4>
+                <a href="https://www.behance.net/trungbui31" target="_blank" rel="noopener" data-hover>Behance</a>
+                <a href="https://facebook.com/trung1629" target="_blank" rel="noopener" data-hover>Facebook</a>
               </div>
               <div class="contact__col">
-                <h4>Studio</h4>
-                <span>Saigon, Vietnam</span>
-                <span>Working worldwide</span>
+                <h4 data-i18n="contactColBased">Based in</h4>
+                <span data-i18n="contactLocation1">Hanoi, Vietnam</span>
+                <span data-i18n="contactLocation2">Open to remote work</span>
               </div>
             </div>
             <div class="contact__bar">
-              <span>© 2026 Mai Vũ. All rights reserved.</span>
-              <span>Fictional portfolio — built with GSAP &amp; Three.js</span>
-              <button class="contact__top" id="toTop" data-hover>Back to top ↑</button>
+              <span data-i18n="copyright">© 2026 Bùi Đức Trung. All rights reserved.</span>
+              <span data-i18n="footerNote">Built with GSAP &amp; Three.js</span>
+              <button class="contact__top" id="toTop" data-hover data-i18n="backToTop">Back to top ↑</button>
             </div>
           </div>
         </footer>
@@ -248,11 +175,45 @@
     </div>
   </div>
 
+  <!-- Case study overlay — must live OUTSIDE #smooth-wrapper so position:fixed
+       is not scoped to ScrollSmoother's transformed container. -->
+  <div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle" aria-hidden="true">
+    <button class="case__close" id="caseClose" data-hover aria-label="Close case study">
+      <span></span><span></span>
+    </button>
+    <div class="case__scroll" id="caseScroll">
+      <div class="case__inner">
+        <header class="case__head">
+          <span class="case__num" id="caseNum">01</span>
+          <h2 class="case__title" id="caseTitle">Project</h2>
+        </header>
+        <div class="case__hero" id="caseHero"></div>
+        <div class="case__body">
+          <div class="case__body-main">
+            <p class="case__desc" id="caseDesc"></p>
+            <div class="case__links" id="caseLinks"></div>
+          </div>
+          <dl class="case__meta" id="caseMeta"></dl>
+        </div>
+        <div class="case__gallery" id="caseGallery"></div>
+        <section class="case__outcome" id="caseOutcome" aria-label="Outcome"></section>
+        <button type="button" class="case__next" id="caseNext" data-hover-label="Next">
+          <span class="case__next-kicker" data-i18n="caseNext">Next project</span>
+          <span class="case__next-title" id="caseNextTitle"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
-  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Flip.min.js"></script>
+  <!-- Cache-bust these two on every edit (bump ?v=) so a returning visitor's
+       browser doesn't keep serving a stale copy after you update content. -->
+  <script src="content.js?v=9"></script>
+  <script src="main.js?v=9"></script>
 </body>
 </html>

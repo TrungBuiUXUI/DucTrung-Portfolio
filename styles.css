@@ -1,15 +1,27 @@
 /* ============================================================
-   Mai Vũ® — Portfolio ’26
+   Bùi Đức Trung® — Portfolio ’26
    Dark kinetic-editorial system. Space Grotesk display / Archivo body.
    ============================================================ */
 
 :root {
-  --bg: #0a0a0b;
-  --bg-raise: #121214;
-  --ink: #edede6;
-  --muted: #8a8a85;
-  --accent: #d8ff3d;
-  --line: rgba(237, 237, 230, 0.14);
+  /* ---- Surfaces ---------------------------------------------------- */
+  --bg: #0c0a0a;            /* page ground, warm near-black              */
+  --bg-raise: #191415;      /* cards, media wells                        */
+  --ink: #f2eceb;           /* primary text                (16.9:1)      */
+  --muted: #9c9391;         /* secondary text              (6.6:1)       */
+
+  /* ---- Signature scarlet ------------------------------------------- */
+  --accent: #ff3b30;        /* accent text, rules, fills   (5.6:1)       */
+  --accent-soft: #ff8578;   /* hover, focus ring           (8.4:1)       */
+  --accent-deep: #bd2419;   /* pressed state               (5.2:1 w/ink) */
+  --on-accent: #12070a;     /* text sitting ON a scarlet fill (5.6:1)    */
+
+  /* Channel lists so rgba() stays token-driven */
+  --accent-rgb: 255, 59, 48;
+  --ink-rgb: 242, 236, 235;
+
+  --line: rgba(var(--ink-rgb), 0.14);
+
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-body: "Archivo", system-ui, sans-serif;
   --pad: clamp(1.25rem, 4vw, 3.5rem);
@@ -19,7 +31,20 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: auto; }
+html {
+  scroll-behavior: auto;
+  /* Reserve the scrollbar gutter so hiding it while the case overlay is
+     open cannot reflow the page underneath. */
+  scrollbar-gutter: stable;
+}
+/* Only the case overlay's own scrollbar stays visible while it is open. */
+html.is-locked { scrollbar-width: none; }
+html.is-locked::-webkit-scrollbar { display: none; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(var(--ink-rgb), 0.16); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(var(--ink-rgb), 0.28); }
 
 body {
   background: var(--bg);
@@ -32,7 +57,7 @@ body {
   overflow-x: hidden;
 }
 
-::selection { background: var(--accent); color: #0a0a0b; }
+::selection { background: var(--accent); color: var(--on-accent); }
 
 a { color: inherit; text-decoration: none; }
 button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
@@ -97,7 +122,7 @@ body::after {
 .cursor__ring {
   width: 38px; height: 38px;
   margin: -19px 0 0 -19px;
-  border: 1px solid rgba(216, 255, 61, 0.5);
+  border: 1px solid rgba(var(--accent-rgb), 0.5);
   display: flex; align-items: center; justify-content: center;
   transition: width 0.25s var(--ease-out), height 0.25s var(--ease-out),
               margin 0.25s var(--ease-out), background-color 0.25s var(--ease-out);
@@ -109,11 +134,11 @@ body::after {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #0a0a0b;
+  color: var(--on-accent);
   opacity: 0;
   transition: opacity 0.2s;
 }
-.cursor--hover .cursor__ring { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: rgba(216,255,61,0.12); }
+.cursor--hover .cursor__ring { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: rgba(var(--accent-rgb), 0.12); }
 .cursor--label .cursor__ring {
   width: 92px; height: 92px; margin: -46px 0 0 -46px;
   background: var(--accent);
@@ -136,7 +161,7 @@ body::after {
   mix-blend-mode: difference;
 }
 .nav--menu-open { mix-blend-mode: normal; }
-.nav--menu-open .nav__logo { color: #0a0a0b; }
+.nav--menu-open .nav__logo { color: var(--on-accent); }
 .nav__logo {
   font-family: var(--font-display);
   font-weight: 700;
@@ -190,7 +215,7 @@ body::after {
   justify-content: flex-end;
   gap: 3rem;
   padding: calc(var(--pad) * 1.5) var(--pad) var(--pad);
-  color: #0a0a0b;
+  color: var(--on-accent);
 }
 .menu__nav { display: flex; flex-direction: column; }
 .menu__link {
@@ -198,7 +223,7 @@ body::after {
   align-items: baseline;
   gap: 1rem;
   padding: 0.5rem 0;
-  border-bottom: 1px solid rgba(10, 10, 11, 0.2);
+  border-bottom: 1px solid rgba(18, 7, 10, 0.22);
   overflow: hidden;
 }
 .menu__num { font-size: 0.8rem; font-weight: 500; }
@@ -329,8 +354,20 @@ section, .contact { padding: var(--section-gap) var(--pad) 0; }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
+  /* Cards hug their own cover, so two cards in a row can differ in height. */
+  align-items: start;
 }
-.project { display: block; }
+.project {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
 .project:nth-child(even) { transform: translateY(clamp(2rem, 6vw, 5rem)); }
 .project__media {
   position: relative;
@@ -340,25 +377,34 @@ section, .contact { padding: var(--section-gap) var(--pad) 0; }
 }
 .project__art {
   position: absolute;
-  inset: -6%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.8s var(--ease-out);
 }
 .project:hover .project__art { transform: scale(1.06); }
-.project__media--a .project__art { background: radial-gradient(120% 90% at 20% 15%, #2b45ff 0%, #101637 55%, #0a0a0b 100%); }
-.project__media--b .project__art { background: radial-gradient(110% 100% at 80% 20%, #ff4d2e 0%, #3a1020 55%, #0a0a0b 100%); }
-.project__media--c .project__art { background: radial-gradient(120% 90% at 30% 80%, #22c8a0 0%, #0e2f2a 55%, #0a0a0b 100%); }
-.project__media--d .project__art { background: radial-gradient(110% 100% at 70% 75%, #b44dff 0%, #241038 55%, #0a0a0b 100%); }
+
+/* Per-project placeholder gradients, reused by the card, the case hero
+   and every gallery slot so a project keeps one colour identity. */
+.tone-a { background: radial-gradient(120% 90% at 20% 15%, #ff3b30 0%, #4a1210 55%, #0c0a0a 100%); }
+.tone-b { background: radial-gradient(110% 100% at 80% 20%, #ff6b2c 0%, #4a1e0c 55%, #0c0a0a 100%); }
+.tone-c { background: radial-gradient(120% 90% at 30% 80%, #ff9f0a 0%, #4a2f05 55%, #0c0a0a 100%); }
+.tone-d { background: radial-gradient(110% 100% at 70% 75%, #d92d3e 0%, #400e16 55%, #0c0a0a 100%); }
+.tone-e { background: radial-gradient(120% 90% at 25% 25%, #c0361d 0%, #3a1408 55%, #0c0a0a 100%); }
+.tone-f { background: radial-gradient(110% 100% at 75% 70%, #ff9478 0%, #4d1f18 55%, #0c0a0a 100%); }
 .project__num {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(6rem, 14vw, 12rem);
   letter-spacing: -0.05em;
-  color: rgba(237, 237, 230, 0.16);
+  color: rgba(var(--ink-rgb), 0.16);
   mix-blend-mode: overlay;
 }
+/* Real photography drops in on top of the gradient placeholder. If the file is
+   missing the <img> removes itself and the gradient stays visible. */
+.project__art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.project__art:has(img) .project__num { display: none; }
 .project__info { padding-top: 1.1rem; }
 .project__title {
   font-family: var(--font-display);
@@ -389,6 +435,176 @@ section, .contact { padding: var(--section-gap) var(--pad) 0; }
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   color: var(--muted);
+}
+
+/* ============ Case study overlay ============ */
+.case {
+  position: fixed;
+  inset: 0;
+  z-index: 88;          /* above nav (85), below custom cursor (90) */
+  background: var(--bg);
+  visibility: hidden;
+  opacity: 0;
+}
+.case.is-open { visibility: visible; }
+.case__scroll {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.case__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(4.5rem, 10vw, 7rem) var(--pad) var(--pad);
+}
+
+/* Close button */
+.case__close {
+  position: fixed;
+  top: clamp(0.9rem, 2vw, 1.6rem);
+  right: clamp(0.9rem, 4vw, 3.5rem);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(var(--ink-rgb), 0.08);
+  backdrop-filter: blur(6px);
+  transition: background-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+.case__close:hover { background: var(--accent); transform: rotate(90deg); }
+.case__close span {
+  position: absolute;
+  width: 17px;
+  height: 1.5px;
+  background: var(--ink);
+  transition: background-color 0.3s;
+}
+.case__close span:first-child { transform: rotate(45deg); }
+.case__close span:last-child { transform: rotate(-45deg); }
+.case__close:hover span { background: var(--on-accent); }
+
+/* Head */
+.case__head {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-bottom: clamp(1.25rem, 3vw, 2rem);
+}
+.case__num { font-family: var(--font-display); font-size: 0.9rem; color: var(--accent); }
+.case__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+/* Hero media — Flip animation lands here */
+.case__hero {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--bg-raise);
+}
+.case__fill { position: absolute; inset: 0; }
+.case__hero img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* Body: description + meta */
+.case__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 5rem);
+  padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(2.5rem, 6vw, 4rem);
+  border-bottom: 1px solid var(--line);
+}
+.case__desc {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.05rem, 2vw, 1.6rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+.case__meta { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 1rem; align-content: start; }
+.case__meta dt {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  margin-bottom: 0.35rem;
+}
+.case__meta dd { color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+
+/* Gallery */
+.case__gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  padding: clamp(2.5rem, 6vw, 4rem) 0;
+}
+/* No background here — the tone-* class on each shot supplies it, and a
+   background declared later in the cascade would silently win over it. */
+.case__shot {
+  position: relative;
+  overflow: hidden;
+  align-self: start;
+}
+/* A gallery slot takes the height of its own image, so a wide screenshot never
+   sits in a 4/3 box with half of it empty. Two cases still need a fixed box:
+   a framed shot (the bezel is absolutely positioned inside the slot) and a
+   slot whose image is missing (the tone-* gradient has nothing to fill). */
+.case__shot:has(.device-frame),
+.case__shot:not(:has(img)) { aspect-ratio: 4 / 3; }
+.case__shot--wide { grid-column: 1 / -1; }
+.case__shot--wide:has(.device-frame),
+.case__shot--wide:not(:has(img)) { aspect-ratio: 16 / 9; }
+.case__shot > img { width: 100%; height: auto; display: block; }
+.case__shot figcaption {
+  position: absolute;
+  left: 0; bottom: 0;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+/* Next project */
+.case__next {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  border-top: 1px solid var(--line);
+  padding: clamp(2rem, 5vw, 3rem) 0;
+  text-align: left;
+}
+.case__next-kicker { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+.case__next-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  transition: color 0.3s, transform 0.4s var(--ease-out);
+}
+.case__next:hover .case__next-title { color: var(--accent); transform: translateX(1rem); }
+
+/* The element that flies from card to hero */
+.flip-clone { z-index: 96; margin: 0; pointer-events: none; overflow: hidden; }
+
+@media (max-width: 767px) {
+  .case__body { grid-template-columns: 1fr; }
+  .case__gallery { grid-template-columns: 1fr; }
+  .case__shot--wide:has(.device-frame),
+  .case__shot--wide:not(:has(img)) { aspect-ratio: 4 / 3; }
+  .case__hero { aspect-ratio: 4 / 3; }
 }
 
 /* ============ About ============ */
@@ -453,8 +669,8 @@ section, .contact { padding: var(--section-gap) var(--pad) 0; }
   text-transform: uppercase;
 }
 .service__desc { color: var(--muted); font-size: 0.95rem; max-width: 40ch; justify-self: end; text-align: right; }
-.service:hover > * { color: #0a0a0b; }
-.service:hover .service__desc { color: rgba(10, 10, 11, 0.7); }
+.service:hover > * { color: var(--on-accent); }
+.service:hover .service__desc { color: rgba(18, 7, 10, 0.7); }
 
 /* ============ Contact ============ */
 .contact { padding-bottom: 0; }
@@ -531,7 +747,7 @@ section, .contact { padding: var(--section-gap) var(--pad) 0; }
 
 /* ============ Focus & a11y ============ */
 a:focus-visible, button:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-soft);  /* 8.2:1 — brighter than --accent for keyboard users */
   outline-offset: 4px;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -552,4 +768,115 @@ a:focus-visible, button:focus-visible {
   .about__meta { grid-template-columns: 1fr; margin-left: 0; }
   .contact__grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .contact__bar { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============ Case study: links + outcome ============ */
+.case__body-main { display: flex; flex-direction: column; gap: 1.75rem; align-items: flex-start; }
+.case__links { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.case__links[hidden] { display: none; }
+.case__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out),
+              border-color 0.3s var(--ease-out);
+}
+.case__link span { color: var(--accent); transition: transform 0.3s var(--ease-out), color 0.3s; }
+.case__link:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.case__link:hover span { color: var(--on-accent); transform: translate(2px, -2px); }
+.case__link:active { background: var(--accent-deep); border-color: var(--accent-deep); color: var(--ink); }
+.case__link:active span { color: var(--ink); }
+
+.case__outcome { padding-bottom: clamp(2rem, 5vw, 3rem); }
+.case__outcome[hidden] { display: none; }
+.case__outcome-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+}
+.case__outcome-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem clamp(1.5rem, 4vw, 3rem);
+}
+.case__outcome-list li {
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+/* ============ Language toggle ============ */
+.nav__end { display: flex; align-items: center; gap: 0.75rem; }
+.nav__lang {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+.nav__lang-opt { color: var(--muted); transition: color 0.25s var(--ease-out); }
+.nav__lang-opt.is-active { color: var(--ink); }
+.nav__lang:hover .nav__lang-opt:not(.is-active) { color: var(--ink); }
+.nav__lang-sep { color: var(--muted); opacity: 0.5; }
+
+/* Vietnamese stacks diacritics above the cap height. The hero lines clip
+   their overflow for the reveal, so they need headroom or Ù/Ứ get sliced. */
+.hero__line { padding-top: 0.14em; }
+.hero__title { line-height: 0.95; }
+
+/* ============ Device frame ============
+   A generic "browser chrome" bezel for projects whose screenshots are
+   flat UI (not already a 3D mockup render). Opt in per project via
+   `frame: true` in content.js — see frameWrap() in main.js. The tone-*
+   gradient behind it stays visible as a backdrop around the bezel. */
+.device-frame {
+  position: absolute;
+  inset: 7%;
+  display: flex;
+  flex-direction: column;
+  background: #131316;
+  border-radius: clamp(8px, 2.4vw, 16px);
+  overflow: hidden;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.65);
+}
+.device-frame__bar {
+  flex: none;
+  height: clamp(18px, 4.5%, 30px);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 10px;
+  background: rgba(var(--ink-rgb), 0.05);
+}
+.device-frame__bar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(var(--ink-rgb), 0.3);
+}
+.device-frame__screen { position: relative; flex: 1; min-height: 0; }
+.device-frame__screen img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
